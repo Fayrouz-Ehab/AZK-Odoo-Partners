@@ -1,0 +1,12 @@
+<odoo>
+    <record id="ir_cron_scrape_partners" model="ir.cron">
+        <field name="name">Scrape Odoo Partners</field>
+        <field name="model_id" ref="azk_odoo_partner_monitor.model_azk_partner"/>
+        <field name="state">code</field>
+        <field name="code">model.scrape_country_partners()</field>
+        <field eval="True" name="active" />
+		<field name="user_id" ref="base.user_admin" />
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+    </record>
+</odoo>

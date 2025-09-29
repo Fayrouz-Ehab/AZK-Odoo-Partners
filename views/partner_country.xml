@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="action_partner_dashboard" model="ir.actions.act_window">
+            <field name="name">Partner Dashboard</field>
+            <field name="res_model">partner.country</field>
+            <field name="view_mode">pivot,graph,list</field>
+            <field name="context">{}</field>
+        </record>
+
+        <menuitem id="menu_partner_dashboard"
+                  name="Dashboard"
+                  sequence="1"
+                  parent="menu_azk_odoo_scrape_partners_root"
+                  action="action_partner_dashboard"/>
+
+        <record id="view_partner_country_list" model="ir.ui.view">
+            <field name="name">partner.country.list</field>
+            <field name="model">partner.country</field>
+            <field name="arch" type="xml">
+                <list string="Partner Countries">
+                    <field name="name" />
+                    <field name="active"/>
+                    <field name="total_partner_count"/>
+                    <field name="to_reprocess_partners" readonly="1"/>
+                    <field name="first_seen_years" readonly="1"/>
+                    <field name="partner_ids"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_partner_country_graph" model="ir.ui.view">
+            <field name="name">partner.country.graph</field>
+            <field name="model">partner.country</field>
+            <field name="arch" type="xml">
+                <graph string="Active Partners by Country" type="bar" stacked="True">
+                    <field name="name" type="row"/> 
+                    <field name="gold_count" type="measure"/>
+                    <field name="silver_count" type="measure"/>
+                    <field name="ready_count" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_partner_country_pivot" model="ir.ui.view">
+            <field name="name">partner.country.pivot</field>
+            <field name="model">partner.country</field>
+            <field name="arch" type="xml">
+                <pivot string="Partner Analysis">
+                    <field name="name" type="row"/> 
+                    <field name="total_partner_count" type="measure"/>
+                    <field name="gold_count" type="measure"/>
+                    <field name="silver_count" type="measure"/>
+                    <field name="ready_count" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_partner_country_search" model="ir.ui.view">
+            <field name="name">partner.country.search</field>
+            <field name="model">partner.country</field>
+            <field name="arch" type="xml">
+                <search string="Partner Dashboard Filters">
+                    <field name="name" string="Country"/>
+
+                    <filter string="Gold Partners"
+                            name="gold"
+                            domain="[('gold_count','>',0)]"/>
+                    <filter string="Silver Partners"
+                            name="silver"
+                            domain="[('silver_count','>',0)]"/>
+                    <filter string="Ready Partners"
+                            name="ready"
+                            domain="[('ready_count','>',0)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Country"
+                                name="group_by_country"
+                                context="{'group_by':'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
