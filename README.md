@@ -1,4 +1,4 @@
-# My Odoo Partner Scraper
+#  Odoo Partner Scraper
 
 This module scrapes Odoo Partner data from the official Odoo website and stores it inside Odoo.
 
